@@ -1,2 +1,2 @@
-# comp7720-project-code
+# Data compresssion with Advise
 project assignment code.
