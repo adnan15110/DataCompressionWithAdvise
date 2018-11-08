@@ -1,15 +1,26 @@
-from context_tree.context_tree import Trie
+from context_tree.context_tree import Trie, Queue
+
 
 # Input keys (use only 'a' through 'z' and lower case)
 def test_context_tree():
-    keys = ["the", 'the', 'the', 'tha']
+
+    data='aababca'
 
     # Trie object
     t = Trie()
+    CONTEXT_LEN=3
+    q=Queue()
 
-    for key in keys:
-        t.insert(key)
+    for char in data:
+        if q.size() < CONTEXT_LEN:
+            q.enqueue(char)
+        else:
+            q.dequeue()
+            q.enqueue(char)
 
-    assert 3==t.search('the')
-    assert 1 == t.search('tha')
-    assert 4 == t.search('th')
+        if q.size()==CONTEXT_LEN:
+            t.insert(q.getQueueData())
+
+
+    assert 2 == t.search('ab')
+    assert 1 == t.search('bab')

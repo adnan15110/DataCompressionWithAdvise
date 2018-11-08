@@ -58,3 +58,23 @@ class Trie:
                 break
 
         return pCrawl.count
+
+
+class Queue:
+    def __init__(self):
+        self.queue = list()
+
+    def enqueue(self,data):
+        self.queue.append(data)
+        return True
+
+    def dequeue(self):
+        if len(self.queue)>0:
+            return self.queue.pop(0)
+        return ("Queue Empty!")
+
+    def size(self):
+        return len(self.queue)
+
+    def getQueueData(self):
+        return ''.join(d for d in self.queue)
