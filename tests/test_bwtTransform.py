@@ -1,4 +1,4 @@
-from bwtTransform import bwt, ibwt
+from Algorithms.bwtTransform import bwt, ibwt
 
 def test_bwt():
     assert  bwt("banana")== "annbaa"

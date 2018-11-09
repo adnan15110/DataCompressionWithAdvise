@@ -1,4 +1,5 @@
-from timeStamp import timestamp_encode, timestamp_decode
+from Algorithms.timeStamp import timestamp_encode
+
 
 def test_timestamp_encode():
     symboltable=['$','A','B','P','R']

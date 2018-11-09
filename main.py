@@ -1,4 +1,4 @@
-from moveToFront import move2front_encode, move2front_decode, SYMBOLTABLE
+from Algorithms.moveToFront import move2front_encode, move2front_decode, SYMBOLTABLE
 
 
 if __name__ == '__main__':
