@@ -14,11 +14,10 @@ def move2front_encode(filepath, symboltable):
         try:
             indx = pad.index(char)
             access_cost+=indx
-            if indx!=0:
-                free_exchange+=indx
-            else:
-                pass
-            pad = [pad.pop(indx)] + pad
+            if indx>0:
+                pad = [pad.pop(indx)] + pad
+                free_exchange+=1
+
         except ValueError:
             print("{} - {}".format(repr(char), char))
     return free_exchange, access_cost

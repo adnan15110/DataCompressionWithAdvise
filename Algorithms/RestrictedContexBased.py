@@ -84,7 +84,7 @@ if __name__ == '__main__':
     CALGARY_DATASET_DIR = os.path.abspath(os.path.join(os.pardir, 'dataset', 'calgary'))
     print('Path to CALGARY dataset: {}'.format(CALGARY_DATASET_DIR))
 
-    for file_name in ['book1']:  # ,'news','progc', 'trans'
+    for file_name in ['book1','news','progc', 'trans']:  # ,'news','progc', 'trans'
         PATH = os.path.abspath(os.path.join(CALGARY_DATASET_DIR, file_name))
         free_exchange, access_cost = restricted_context_based_encode(PATH, SYMBOLTABLE)
         print("RCB {} --> Free ex: {} AC: {}".format(file_name, free_exchange, access_cost))
