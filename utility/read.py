@@ -8,6 +8,6 @@ file = open(PATH, mode='r')
 while 1:
     char = file.read(1)          # read by character
     if not char: break
-    print("{} - {}".format(char, ord(char)))
+    print("{} - {}".format(repr(char), ord(char)))
 
 file.close()
