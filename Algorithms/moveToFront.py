@@ -3,7 +3,6 @@ from __future__ import print_function
 # contains all lowercase english symbol
 SYMBOLTABLE = ['{}'.format(chr(x)) for x in range(128)]
 
-
 def move2front_encode(filepath, symboltable):
     file = open(filepath, mode='r')
     free_exchange, access_cost, pad = 0,0, symboltable[:]
@@ -13,10 +12,10 @@ def move2front_encode(filepath, symboltable):
         # print("{} - {}".format(repr(char), ord(char)))
         try:
             indx = pad.index(char)
-            access_cost+=indx
+            access_cost+=indx+1
             if indx>0:
                 pad = [pad.pop(indx)] + pad
-                free_exchange+=1
+                free_exchange+=indx+1
 
         except ValueError:
             print("{} - {}".format(repr(char), char))

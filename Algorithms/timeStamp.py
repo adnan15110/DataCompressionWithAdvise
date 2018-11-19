@@ -1,5 +1,7 @@
+from copy import deepcopy
 SYMBOLTABLE = ['{}'.format(chr(x)) for x in range(128)]
 TIMESTAMP_DS= {} # holds the time stamp related information.
+INITIAL_DICT = {'{}'.format(i):0 for i in SYMBOLTABLE}
 
 def timestamp_encode(filepath, symboltable):
 
@@ -47,16 +49,28 @@ def timestamp_ds_update(char):
     3. Add char as key with [] value.
     :return: None if the value is there else None
     """
+    global TIMESTAMP_DS
+    global INITIAL_DICT
+
     char_list=None
     if char in TIMESTAMP_DS:
         char_list=TIMESTAMP_DS.pop(char)
 
-    for key in TIMESTAMP_DS:
-        TIMESTAMP_DS[key].append(char)
+    try:
+        for key in TIMESTAMP_DS:
+            if TIMESTAMP_DS[key][char]:
+                TIMESTAMP_DS[key][char]+=1
+                if TIMESTAMP_DS[key][char]>1:
+                    TIMESTAMP_DS[key].pop(char)
+    except KeyError:
+        print('{} -------- {}'.format(key, char))
 
-    TIMESTAMP_DS[char]=[]
+    TIMESTAMP_DS[char]={'{}'.format(i):0 for i in SYMBOLTABLE}
 
-    return char_list
+    if char_list:
+        return list(char_list.keys())
+    else:
+        return []
 
 
 def  timestamp_decode():
