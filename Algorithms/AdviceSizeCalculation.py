@@ -1,7 +1,7 @@
 from context_tree.context_tree import Trie, TrieNode
 import pickle
 import sys
-
+import os
 class AdviceSize:
     """
     This class  computes number of node in the context tree and their size.
@@ -12,7 +12,7 @@ class AdviceSize:
         self.context_tree=None
 
     def load_context_tree(self):
-        with open(self.file_name, 'rb') as f:
+        with open(os.path.abspath(os.path.join(os.curdir,'advices',self.file_name)), 'rb') as f:
             self.context_tree = pickle.load(f)
 
     def bredth_first_search(self):
