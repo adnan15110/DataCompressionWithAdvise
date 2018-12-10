@@ -65,7 +65,7 @@ class TimeStampAlgorithm:
                         # insert the item in its position
                         if swap_index is not None:
                             if swap_index == 0:
-                                self.output['free exchange'] += 1
+                                self.output['free exchange'] = self.output['free exchange']+indx
 
                             # self.output['free exchange']+(indx-swap_index)
 
