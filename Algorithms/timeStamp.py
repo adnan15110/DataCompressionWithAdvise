@@ -42,7 +42,6 @@ class TimeStampAlgorithm:
                 char = file.read(1)
                 if not char: break
                 try:
-                    char_list = self.timestamp_update(char)
                     indx = pad.index(char)
                     cost = indx+1  # to account list index 0 as index 1
                     self.output['compressed size'] =  self.output['compressed size'] + floor(2 * np.log(cost))
@@ -52,12 +51,13 @@ class TimeStampAlgorithm:
                     self.output['CC linear'] += cost
                     self.output['CC log'] = self.output['CC log'] + (1 + floor(2 * (np.log(cost))))
 
+                    char_list = self.timestamp_update(char)
                     if char_list and len(char_list)>0:
                         # here we have the time stamp list
                         swap_index=None
                         items_before_index = pad[:indx]
                         for ind,value in enumerate(items_before_index):
-                            if value in char_list:
+                            if value not in char_list:
                                 swap_index=ind
                                 break
 
@@ -92,6 +92,7 @@ class TimeStampAlgorithm:
 
     def timestamp_update(self, char):
         """
+        # First implementation
         steps:
         1. checks whether char params exists in the key of TIMESTAMP_DS
             if exists 
@@ -103,6 +104,10 @@ class TimeStampAlgorithm:
               
         2. Add the char to all existing key's value list
         3. Add char as key with [] value.
+        
+        #Second implementation 
+        count the items that appears multiple times
+        
         :return: None if the value is there else None
         """
         char_list=None
@@ -118,16 +123,14 @@ class TimeStampAlgorithm:
             for key in self.TIMESTAMP_DS:
                 if self.TIMESTAMP_DS[key][char]:
                     self.TIMESTAMP_DS[key][char]+=1
-                    if self.TIMESTAMP_DS[key][char]>1:
-                        self.TIMESTAMP_DS[key].pop(char)
         except KeyError:
-            print('already removed [{}]-[{}]'.format(key, char))
+            self.TIMESTAMP_DS[key][char] = 1
 
         # reset the time stamp if it is a second access or initialize the timestamp if it is the first access
-        self.TIMESTAMP_DS[char]={'{}'.format(i):0 for i in self.SYMBOLTABLE}
+        self.TIMESTAMP_DS[char]={}
 
         if char_list and not first_access:
-            return list(char_list.keys())
+            return [k for k, v in char_list.items() if v > 1]
         else:
             return []
 
