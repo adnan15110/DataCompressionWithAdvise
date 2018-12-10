@@ -57,7 +57,10 @@ class Trie:
             if not found:
                 break
 
-        return pCrawl.count
+        if found:
+            return pCrawl.count
+        else:
+            return 0
 
 
 class Queue:
